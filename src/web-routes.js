@@ -1,5 +1,5 @@
-import { accountsController } from "./controllers/accounts-controller.js";
-import { dashboardController } from "./controllers/dashboard-controller.js";
+import { accountsController } from "./controllers/accountsController.js";
+import { dashboardController } from "./controllers/dashboardController.js";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },

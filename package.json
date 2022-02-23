@@ -19,6 +19,7 @@
     "prettier": "^2.5.1"
   },
   "dependencies": {
+    "@hapi/cookie": "^11.0.2",
     "@hapi/hapi": "^20.2.1",
     "@hapi/vision": "^6.1.0",
     "@tailwindcss/typography": "^0.5.2",
