@@ -19,6 +19,10 @@ export const accountsController = {
     auth: false,
     handler: async function (request, h) {
       const user = request.payload;
+      if(db.userStore.getUserByEmail(user.email)) {
+        console.log('User already exists: ' + user.email);
+        return h.redirect("/signup");
+      };
       var new_user = new User({
         email: user.email
       });
