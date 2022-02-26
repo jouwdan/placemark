@@ -19,7 +19,7 @@ export const restaurantMongoStore = {
         return restaurants;
     },
 
-    async addRestaurant(reastaurant) {
+    async addRestaurant(restaurant) {
         const newRestaurant = new Restaurant(restaurant);
         const restaurantObject = await newRestaurant.save();
         const r = await this.getRestaurantById(restaurantObject._id);
