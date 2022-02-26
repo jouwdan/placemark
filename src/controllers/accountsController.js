@@ -37,7 +37,8 @@ export const accountsController = {
       });
       newUser.password = newUser.generateHash(user.password);
       await db.userStore.addUser(newUser);
-      return h.redirect("/");
+      request.cookieAuth.set({ id: newUser._id });
+      return h.redirect("/dashboard");
     },
   },
   showLogin: {
