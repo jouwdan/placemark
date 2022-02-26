@@ -8,6 +8,7 @@ const userSchema = new Schema({
     lastName: String,
     email: String,
     password: String,
+    role: String,
 });
 
 userSchema.methods.generateHash = function(password) {
