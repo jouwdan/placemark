@@ -30,7 +30,7 @@ export const userMongoStore = {
         try {
             await User.deleteOne({_id: id});
         } catch (error) {
-            console.log('Invalid ID');
+            console.log("Invalid ID");
         }
     },
 

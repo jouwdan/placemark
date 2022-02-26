@@ -1,7 +1,7 @@
+import bcrypt from "bcrypt";
 import { db } from "../models/db.js";
 import { User } from "../models/mongo/user.js";
 import { UserSpec, } from "../models/joi-schemas.js";
-import bcrypt from "bcrypt";
 
 export const accountsController = {
   index: {
@@ -27,15 +27,15 @@ export const accountsController = {
     handler: async function (request, h) {
       const user = request.payload;
       if(db.userStore.getUserByEmail(user.email)) {
-        let errors = [];
+        const errors = [];
         errors.push({message: "User Already Exists"});
-        console.log('User already exists: ' + user.email);
+        console.log(`User already exists: ${  user.email}`);
         return h.view("signup-view", {errors}).takeover().code(400);
       };
-      var new_user = new User({
+      const newUser = new User({
         email: user.email
       });
-      new_user.password = new_user.generateHash(user.password);
+      newUser.password = newUser.generateHash(user.password);
       await db.userStore.addUser(new_user);
       return h.redirect("/");
     },
@@ -59,19 +59,19 @@ export const accountsController = {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email, password);
       if (!user) {
-        let errors = [];
+        const errors = [];
         errors.push({message: "Invalid User"});
         console.log({errors});
         return h.view("login-view", {errors}).takeover().code(400);
       }
       const match = await bcrypt.compare(password, user.password);
       if(!match) {
-        let errors = [];
+        const errors = [];
         errors.push({message: "Invalid password"});
         console.log({errors});
         return h.view("login-view", {errors}).takeover().code(400);
       }
-      console.log('logging in as ' + email);
+      console.log(`logging in as ${  email}`);
       request.cookieAuth.set({ id: user._id });
       return h.redirect("/dashboard");
     },

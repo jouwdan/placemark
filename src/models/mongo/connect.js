@@ -12,7 +12,7 @@ export function connectMongo() {
     });
 
     db.on("disconnected", () => {
-        console.log(`database disconnected`);
+        console.log("database disconnected");
     });
 
     db.once("open", function() {
