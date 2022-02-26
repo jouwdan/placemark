@@ -8,6 +8,7 @@
   <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
     <form action="/register" method="POST">
       <div class="card-body">
+          {{> error }}
         <div class="form-control">
           <label class="label">
             <span class="label-text">Email</span>
@@ -23,7 +24,7 @@
             <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
           </label>
         </div>
-        <div class="form-control mt-6">
+        <div class="form-control mt-6 justify-center">
           <button class="btn btn-primary">Sign Up</button>
         </div>
       </div>

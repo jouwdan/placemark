@@ -27,6 +27,7 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
     "handlebars": "^4.7.7",
+    "joi": "^17.6.0",
     "mongoose": "^6.2.3",
     "nodemon": "^2.0.15",
     "uuid": "^8.3.2"

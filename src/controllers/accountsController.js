@@ -1,5 +1,6 @@
 import { db } from "../models/db.js";
 import { User } from "../models/mongo/user.js";
+import { UserSpec, } from "../models/joi-schemas.js";
 import bcrypt from "bcrypt";
 
 export const accountsController = {
@@ -17,11 +18,19 @@ export const accountsController = {
   },
   signup: {
     auth: false,
+    validate: {
+      payload: UserSpec,
+      failAction: function (request, h, error) {
+        return h.view("signup-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const user = request.payload;
       if(db.userStore.getUserByEmail(user.email)) {
+        let errors = [];
+        errors.push({message: "User Already Exists"});
         console.log('User already exists: ' + user.email);
-        return h.redirect("/signup");
+        return h.view("signup-view", {errors}).takeover().code(400);
       };
       var new_user = new User({
         email: user.email
@@ -39,17 +48,28 @@ export const accountsController = {
   },
   login: {
     auth: false,
+    validate: {
+      payload: UserSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("login-view", { title: "Log in error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email, password);
       if (!user) {
-        console.log('invalid user: ' + email);
-        return h.redirect("/login");
+        let errors = [];
+        errors.push({message: "Invalid User"});
+        console.log({errors});
+        return h.view("login-view", {errors}).takeover().code(400);
       }
       const match = await bcrypt.compare(password, user.password);
       if(!match) {
-        console.log('invalid password entered for user: ' + email);
-        return h.redirect("/login");
+        let errors = [];
+        errors.push({message: "Invalid password"});
+        console.log({errors});
+        return h.view("login-view", {errors}).takeover().code(400);
       }
       console.log('logging in as ' + email);
       request.cookieAuth.set({ id: user._id });
