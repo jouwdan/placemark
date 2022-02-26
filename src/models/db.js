@@ -5,13 +5,7 @@ export const db = {
   userStore: null,
 
   init(storeType) {
-    switch (storeType) {
-      case "mongo":
-        this.userStore = userMongoStore;
-        connectMongo();
-        break;
-      default:
-        this.userStore = userMemStore;
-    }
+      this.userStore = userMongoStore;
+      connectMongo();
   },
 };
