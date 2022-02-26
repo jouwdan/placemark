@@ -3,13 +3,14 @@ import Mongoose from "mongoose";
 const { Schema } = Mongoose;
 
 const restaurantSchema = new Schema({
-    Name: String,
+    name: String,
     location: {
-        type: { type: String, enum: ["Point"] },
+        type: { type: String, enum: ["Point"], required: true },
         coordinates: [Number],
+        required: true
     },
-    Description: String,
-    Category: String,
+    description: String,
+    category: String,
 });
 
 export const Restaurant = Mongoose.model("Restaurant", restaurantSchema);
