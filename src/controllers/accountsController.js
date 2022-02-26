@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { db } from "../models/db.js";
 import { User } from "../models/mongo/user.js";
-import { UserSpec, } from "../models/joi-schemas.js";
+import { UserSpec } from "../models/joi-schemas.js";
 
 export const accountsController = {
   index: {
@@ -26,17 +26,17 @@ export const accountsController = {
     },
     handler: async function (request, h) {
       const user = request.payload;
-      if(db.userStore.getUserByEmail(user.email)) {
+      if(await db.userStore.getUserByEmail(user.email)) {
         const errors = [];
         errors.push({message: "User Already Exists"});
-        console.log(`User already exists: ${  user.email}`);
+        console.log(`User already exists: ${user.email}`);
         return h.view("signup-view", {errors}).takeover().code(400);
       };
       const newUser = new User({
         email: user.email
       });
       newUser.password = newUser.generateHash(user.password);
-      await db.userStore.addUser(new_user);
+      await db.userStore.addUser(newUser);
       return h.redirect("/");
     },
   },
@@ -71,7 +71,7 @@ export const accountsController = {
         console.log({errors});
         return h.view("login-view", {errors}).takeover().code(400);
       }
-      console.log(`logging in as ${  email}`);
+      console.log(`logging in as ${email}`);
       request.cookieAuth.set({ id: user._id });
       return h.redirect("/dashboard");
     },
