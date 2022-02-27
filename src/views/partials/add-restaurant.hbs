@@ -1,0 +1,37 @@
+<form action="/dashboard/addrestaurant" method="POST">
+    <div class="form-control">
+        <label class="label">Restaurant Name</label>
+        <input class="input input-bordered" type="text" placeholder="Name" name="name">
+        <label class="label">Description</label>
+        <input class="input input-bordered" type="text" placeholder="Description" name="description">
+        <label class="label">Category</label>
+        <select class="select select-bordered" name="category">
+            <option disabled selected>Select One</option>
+            <option>Fine Dining</option>
+            <option>Casual Dining</option>
+            <option>Fast Casual</option>
+            <option>Fast Food</option>
+            <option>Cafe</option>
+            <option>Buffet</option>
+            <option>Pub</option>
+        </select>
+        <label class="label">Cuisine</label>
+        <select class="select select-bordered" name="cuisine">
+            <option disabled selected>Select One</option>
+            <option>Irish</option>
+            <option>Italian</option>
+            <option>Chinese</option>
+            <option>Indian</option>
+            <option>Thai</option>
+            <option>Mexican</option>
+            <option>French</option>
+            <option>Seafood</option>
+            <option>Steakhouse</option>
+            <option>Deli</option>
+        </select>
+        <label class="label">Location</label>
+        <input class="input input-bordered" type="text" placeholder="Long, Lat" name="location">
+        <br>
+        <button class="btn btn-neutral">Add Restaurant</button>
+    </div>
+</form>

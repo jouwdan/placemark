@@ -6,7 +6,9 @@ export const webRoutes = [
   { method: "GET", path: "/signup", config: accountsController.showSignup },
   { method: "GET", path: "/login", config: accountsController.showLogin },
   { method: "GET", path: "/logout", config: accountsController.logout },
+  { method: "GET", path: "/dashboard", config: dashboardController.index },
+
   { method: "POST", path: "/register", config: accountsController.signup },
   { method: "POST", path: "/authenticate", config: accountsController.login },
-  { method: "GET", path: "/dashboard", config: dashboardController.index },
+  { method: "POST", path: "/dashboard/addrestaurant", config: dashboardController.addRestaurant },
 ];
