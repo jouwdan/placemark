@@ -19,6 +19,11 @@ export const userApi = {
             email: user.email
         });
         newUser.password = newUser.generateHash(user.password);
+        if(request.payload.role) {
+            newUser.role = request.payload;
+        } else {
+            newUser.role = "User";
+        }
         await db.userStore.addUser(newUser);
         if (user) {
           return h.response(user).code(201);
