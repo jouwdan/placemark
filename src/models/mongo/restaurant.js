@@ -7,17 +7,8 @@ const restaurantSchema = new Schema({
     description: String,
     category: String,
     cuisine: String,
-    location: {
-        type: {
-            type: String,
-            enum: 'Point',
-            default: 'Point'
-        },
-        coordinates: {
-            type: [Number],
-            default: [0, 0]
-        }
-    },
+    longitude: 'Number',
+    latitude: 'Number'
 });
 
 export const Restaurant = Mongoose.model("Restaurant", restaurantSchema);
