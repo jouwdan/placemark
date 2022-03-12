@@ -14,11 +14,21 @@ export const restaurantMongoStore = {
         return null;
     },
 
-    async getRestaurantsByCategory(category) {
-        const restaurants = await User.find({category: category}).lean();
+    async getRestaurantsByName(nameInput) {
+        const restaurants = await Restaurant.find({name: nameInput}).lean();
         return restaurants;
     },
 
+    async getRestaurantsByCategory(categoryInput) {
+        const restaurants = await Restaurant.find({category: categoryInput}).lean();
+        return restaurants;
+    },
+
+    async getRestaurantsByCuisine(cuisineInput) {
+        const restaurants = await Restaurant.find({cuisine: cuisineInput}).lean();
+        return restaurants;
+    },
+    
     async addRestaurant(restaurant) {
         const newRestaurant = new Restaurant(restaurant);
         const restaurantObject = await newRestaurant.save();
