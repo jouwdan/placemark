@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { assert } from "chai";
 import { db } from "../../src/models/db.js";
 import { maggie, testUsers } from "../fixtures.js";

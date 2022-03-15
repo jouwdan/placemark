@@ -27,6 +27,7 @@
     "@hapi/vision": "^6.1.0",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.2",
+    "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
     "handlebars": "^4.7.7",
