@@ -6,6 +6,7 @@ import path from "path";
 import dotenv from "dotenv";
 import Joi from "joi";
 import Inert from "@hapi/inert";
+import HapiSwagger from "hapi-swagger";
 import { fileURLToPath } from "url";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
@@ -21,14 +22,27 @@ if (result.error) {
   process.exit(1);
 }
 
+const swaggerOptions = {
+  info: {
+    title: "Placemark API",
+    version: "0.1",
+  },
+};
+
 async function init() {
   const server = Hapi.server({
     port: 3000,
     host: "localhost",
   });
-  await server.register(Vision);
-  await server.register(Cookie);
-  await server.register(Inert);
+  await server.register([
+    Vision,
+    Cookie,
+    Inert,
+    {
+      plugin: HapiSwagger,
+      options: swaggerOptions,
+    },
+  ]);
   server.validator(Joi);
   server.auth.strategy("session", "cookie", {
     cookie: {
