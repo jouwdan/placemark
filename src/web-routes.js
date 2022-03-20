@@ -8,6 +8,8 @@ export const webRoutes = [
   { method: "GET", path: "/logout", config: accountsController.logout },
   { method: "GET", path: "/dashboard", config: dashboardController.index },
 
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
+
   { method: "POST", path: "/register", config: accountsController.signup },
   { method: "POST", path: "/authenticate", config: accountsController.login },
   { method: "POST", path: "/dashboard/addrestaurant", config: dashboardController.addRestaurant },
