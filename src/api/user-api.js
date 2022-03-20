@@ -34,6 +34,11 @@ export const userApi = {
         return Boom.badImplementation("error creating user");
       }
     },
+    tags: ["api"],
+    description: "Create a User",
+    notes: "Returns the newly created user",
+    validate: { payload: UserSpec, failAction: validationError },
+    response: { schema: UserSpec, failAction: validationError },
   },
 
   find: {
@@ -81,5 +86,8 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all users",
+    notes: "Delete all users from Placemark",
   },
 };
