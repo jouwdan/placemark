@@ -2,6 +2,8 @@ import Boom from "@hapi/boom";
 import bcrypt from "bcrypt";
 import { db } from "../models/db.js";
 import { User } from "../models/mongo/user.js";
+import { UserSpec, UserArray } from "../models/joi-schemas.js";
+import { validationError } from "./logger.js";
 
 export const userApi = {
   create: {
@@ -44,6 +46,10 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Get all users",
+    notes: "Returns details of all users",
+    response: { schema: UserArray, failAction: validationError },
   },
 
   findOne: {
@@ -59,6 +65,10 @@ export const userApi = {
         return Boom.serverUnavailable("No User with this id");
       }
     },
+    tags: ["api"],
+    description: "Get a specific user",
+    notes: "Returns user details",
+    response: { schema: UserSpec, failAction: validationError },
   },
 
   deleteAll: {
