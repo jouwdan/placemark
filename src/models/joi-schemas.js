@@ -20,3 +20,4 @@ export const RestaurantSpec = {
 };
 
 export const UserArray = Joi.array().items(UserSpec).label("UserArray");
+export const RestaurantArray = Joi.array().items(RestaurantSpec).label("RestaurantArray");

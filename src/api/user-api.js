@@ -15,7 +15,6 @@ export const userApi = {
             const errors = [];
             errors.push({message: "User Already Exists"});
             console.log(`User already exists: ${user.email}`);
-            return h.view("signup-view", {errors}).takeover().code(400);
         };
         const newUser = new User({
             email: user.email
