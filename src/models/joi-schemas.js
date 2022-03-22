@@ -13,11 +13,16 @@ export const UserSpec = Joi.object()
   })
   .label("UserDetails");
 
-export const RestaurantSpec = {
+export const RestaurantSpec = Joi.object()
+.keys({
   name: Joi.string().required(),
   description: Joi.string().required(),
   category: Joi.string().required(),
-};
+  cuisine: Joi.string().required(),
+  longitude: Joi.number(),
+  latitude: Joi.number()
+})
+.label("RestaurantDetails");
 
 export const UserArray = Joi.array().items(UserSpec).label("UserArray");
 export const RestaurantArray = Joi.array().items(RestaurantSpec).label("RestaurantArray");
