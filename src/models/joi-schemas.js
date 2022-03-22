@@ -20,7 +20,9 @@ export const RestaurantSpec = Joi.object()
   category: Joi.string().required(),
   cuisine: Joi.string().required(),
   longitude: Joi.number(),
-  latitude: Joi.number()
+  latitude: Joi.number(),
+  _id: IdSpec,
+  __v: Joi.number(),
 })
 .label("RestaurantDetails");
 
