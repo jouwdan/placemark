@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
 const result = dotenv.config();
 if (result.error) {
   console.log(result.error.message);
-  process.exit(1);
+  // process.exit(1);
 }
 
 const swaggerOptions = {
