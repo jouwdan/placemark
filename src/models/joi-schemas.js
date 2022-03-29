@@ -32,5 +32,10 @@ export const RestaurantSpec = Joi.object()
 })
 .label("RestaurantDetails");
 
+export const RestaurantSpecPlus = RestaurantSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("RestaurantPlus");
+
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
-export const RestaurantArray = Joi.array().items(RestaurantSpec).label("RestaurantArray");
+export const RestaurantArray = Joi.array().items(RestaurantSpecPlus).label("RestaurantArray");
