@@ -1,5 +1,6 @@
 import axios from "axios";
 import { serviceUrl } from "../fixtures.js";
+import bcrypt from "bcrypt";
 
 export const placemarkService = {
   placemarkUrl: serviceUrl,

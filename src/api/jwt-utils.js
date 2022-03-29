@@ -13,13 +13,13 @@ export function createToken(user) {
     algorithm: "HS256",
     expiresIn: "1h",
   };
-  return jwt.sign(payload, process.env.cookie_password, options);
+  return jwt.sign(payload, process.env.cookiePassword, options);
 }
 
 export function decodeToken(token) {
   const userInfo = {};
   try {
-    const decoded = jwt.verify(token, process.env.cookie_password);
+    const decoded = jwt.verify(token, process.env.cookiePassword);
     userInfo.userId = decoded.id;
     userInfo.email = decoded.email;
   } catch (e) {
