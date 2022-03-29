@@ -42,19 +42,16 @@ export const userApi = {
         newUser.role = request.payload;
       } else {
         newUser.role = "User";
-      }
+      };
       try {
         const addNewUser = await db.userStore.addUser(newUser);
         if (addNewUser) {
           return h.response(addNewUser).code(201);
-        }
+        };
         return Boom.badImplementation("error creating user");
         } catch (err) {
           return Boom.serverUnavailable("Database Error");
-        }
-        if (user) {
-          return h.response(user).code(201);
-        }
+        };
     },
     tags: ["api"],
     description: "Create a User",
