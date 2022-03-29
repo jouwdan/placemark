@@ -26,4 +26,14 @@ suite("Authentication API tests", async () => {
     assert.equal(userInfo.email, returnedUser.email);
     assert.equal(userInfo.userId, returnedUser._id);
   });
+
+  test("check Unauthorized", async () => {
+    playtimeService.clearAuth();
+    try {
+      await playtimeService.deleteAllUsers();
+      assert.fail("Route not protected");
+    } catch (error) {
+      assert.equal(error.response.data.statusCode, 401);
+    }
+  });
 });
