@@ -1,7 +1,7 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { Restaurant } from "../models/mongo/restaurant.js";
-import { RestaurantSpec, RestaurantArray } from "../models/joi-schemas.js";
+import { RestaurantSpec, RestaurantSpecPlus, RestaurantArray } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 
 export const restaurantApi = {
@@ -32,7 +32,7 @@ export const restaurantApi = {
     description: "Add a new Restaurant",
     notes: "Returns the newly created restaurant",
     validate: { payload: RestaurantSpec, failAction: validationError },
-    response: { schema: RestaurantSpec, failAction: validationError },
+    response: { schema: RestaurantSpecPlus, failAction: validationError },
   },
 
   find: {
@@ -67,7 +67,7 @@ export const restaurantApi = {
     tags: ["api"],
     description: "Get a specific restaurant",
     notes: "Returns restaurant details",
-    response: { schema: RestaurantSpec, failAction: validationError },
+    response: { schema: RestaurantSpecPlus, failAction: validationError },
   },
 
   deleteAll: {
