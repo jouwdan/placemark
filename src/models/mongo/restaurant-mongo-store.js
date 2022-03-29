@@ -46,5 +46,12 @@ export const restaurantMongoStore = {
 
     async deleteAll() {
         await Restaurant.deleteMany({});
-    }
+    },
+
+    async updateRestaurant(updatedRestaurant) {
+        const selectedRestaurant = await Restaurant.findOne({ _id: updatedRestaurant._id });
+        selectedRestaurant.title = updatedRestaurant.title;
+        selectedRestaurant.img = updatedRestaurant.img;
+        await selectedRestaurant.save();
+      },
 };

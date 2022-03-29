@@ -1,19 +1,51 @@
 {{> menu }}
 
-<div class="hero from-primary to-secondary text-primary-content -mt-[4rem] flex flex-col items-center bg-gradient-to-br p-16">
+<div
+  class="hero from-primary to-secondary text-primary-content -mt-[4rem] flex flex-col items-center bg-gradient-to-br p-16">
   <div class="hero-content w-full">
     <h1 class="text-5xl font-bold p-12">{{restaurant.name}}</h1>
   </div>
 </div>
 
 <div class="container mx-auto mt-4 flex flex-wrap justify-center">
-    <div class="card w-full text-center bg-base-100 shadow-xl p-10 m-2">
-      <p class="text-lg">
-        <span class="font-bold">{{restaurant.name}}</span> is a
-        <span class="badge my-2">{{restaurant.category}}</span> restaurant that serves
+  <div class="card w-full text-center bg-base-100 shadow-xl p-10 m-2">
+    <p class="text-lg">
+      <span class="font-bold">{{restaurant.name}}</span> is a
+      <span class="badge my-2">{{restaurant.category}}</span> restaurant that serves
       <span class="badge badge-primary my-2">{{restaurant.cuisine}}</span> cuisine.<br>
-        Their decription is: <br> {{restaurant.description}} <br>
-        {{#if restaurant.latitude}}They are located at {{restaurant.latitude}}, {{restaurant.longitude}}{{/if}}
-      </p>
+      Their decription is: <br> {{restaurant.description}} <br>
+      {{#if restaurant.latitude}}They are located at {{restaurant.latitude}}, {{restaurant.longitude}}{{/if}}
+    </p>
+  </div>
+</div>
+
+{{#if restaurant.img}}
+<div class="container mx-auto mt-4 flex flex-wrap justify-center">
+  <div class="card w-full text-center bg-base-100 shadow-xl p-10 m-2">
+    <img src="{{restaurant.img}}">
+  </div>
+</div>
+{{/if}}
+
+<div class="container mx-auto mt-4 flex flex-wrap justify-center">
+  <div class="card w-full text-center bg-base-100 shadow-xl p-10 m-2">
+    <p class="text-lg">
+      <span class="font-bold">Have an image to upload of {{restaurant.name}}?</span>
+    </p>
+    <div class="flex justify-center">
+      <form action="/restaurant/{{restaurant._id}}/uploadimage" method="POST" enctype="multipart/form-data">
+      <div id="file-select" class="file has-name is-fullwidth">
+        <label class="file-label"> <input class="file-input" name="imagefile" type="file" name="resume" accept="image/png, image/jpeg">
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+           </span>
+          <span class="file-name"></span>
+        </label>
+        <button type="submit" class="btn">Upload</button>
+      </div>
+    </form>
     </div>
+  </div>
 </div>

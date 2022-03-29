@@ -15,4 +15,5 @@ export const webRoutes = [
   { method: "POST", path: "/register", config: accountsController.signup },
   { method: "POST", path: "/authenticate", config: accountsController.login },
   { method: "POST", path: "/dashboard/addrestaurant", config: dashboardController.addRestaurant },
+  { method: "POST", path: "/restaurant/{id}/uploadimage", config: restaurantController.uploadImage },
 ];
