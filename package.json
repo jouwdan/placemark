@@ -32,8 +32,10 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
     "handlebars": "^4.7.7",
-    "hapi-swagger": "^14.2.5",
+    "hapi-auth-jwt2": "^10.2.0",
+    "hapi-swagger": "^6.2.2",
     "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.3",
     "nodemon": "^2.0.15",
     "uuid": "^8.3.2"
