@@ -10,9 +10,9 @@ export const UserCredentialsSpec = Joi.object()
   .label("UserCredentials");
 
 export const UserSpec = UserCredentialsSpec.keys({
-  firstName: Joi.string().example("Homer").required(),
-  lastName: Joi.string().example("Simpson").required(),
-  role: Joi.string().example("user").required(),
+  firstName: Joi.string().example("Homer"),
+  lastName: Joi.string().example("Simpson"),
+  role: Joi.string().example("user"),
 }).label("UserDetails");
 
 export const UserSpecPlus = UserSpec.keys({
