@@ -33,7 +33,7 @@
     "dotenv": "^16.0.0",
     "handlebars": "^4.7.7",
     "hapi-auth-jwt2": "^10.2.0",
-    "hapi-swagger": "^6.2.2",
+    "hapi-swagger": "^14.2.5",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.3",

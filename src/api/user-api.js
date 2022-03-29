@@ -4,8 +4,27 @@ import { db } from "../models/db.js";
 import { User } from "../models/mongo/user.js";
 import { UserSpec, UserSpecPlus, IdSpec, UserArray } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { createToken } from "./jwt-utils.js";
 
 export const userApi = {
+  authenticate: {
+    auth: false,
+    handler: async function(request, h) {
+      try {
+        const user = await db.userStore.getUserByEmail(request.payload.email);
+        if (!user) {
+          return Boom.unauthorized("User not found");
+        } else if (user.password !== request.payload.password) {
+          return Boom.unauthorized("Invalid password");
+        } else {
+          const token = createToken(user);
+          return h.response({ success: true, token: token }).code(201);
+        }
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    }
+  },
   create: {
     auth: false,
     handler: async function(request, h) {
