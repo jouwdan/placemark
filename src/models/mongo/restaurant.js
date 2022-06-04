@@ -8,8 +8,8 @@ const restaurantSchema = new Schema({
     img: String,
     category: String,
     cuisine: String,
-    longitude: 'Number',
-    latitude: 'Number'
+    longitude: String,
+    latitude: String
 });
 
 export const Restaurant = Mongoose.model("Restaurant", restaurantSchema);
