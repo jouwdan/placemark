@@ -35,3 +35,16 @@ export async function validate(decoded, request) {
   }
   return { isValid: true, credentials: user };
 }
+
+export function getUserIdFromRequest(request) {
+  let userId = null;
+  try {
+    const { authorization } = request.headers;
+    const token = authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.cookiePassword);
+    userId = decodedToken.id;
+  } catch (e) {
+    userId = null;
+  }
+  return userId;
+}

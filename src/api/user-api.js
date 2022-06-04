@@ -21,7 +21,7 @@ export const userApi = {
         };
         if(err) {
           return Boom.unauthorized("Invalid password");
-        }
+        };
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
