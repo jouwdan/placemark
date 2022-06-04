@@ -27,8 +27,8 @@ export const RestaurantSpec = Joi.object()
   category: Joi.string().required(),
   cuisine: Joi.string().required(),
   img: Joi.string(),
-  longitude: Joi.number(),
-  latitude: Joi.number(),
+  longitude: Joi.string(),
+  latitude: Joi.string(),
   _id: IdSpec,
   __v: Joi.number(),
 })
