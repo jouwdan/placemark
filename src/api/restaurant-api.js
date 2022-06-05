@@ -8,25 +8,27 @@ export const restaurantApi = {
   create: {
     auth: false,
     handler: async function(request, h) {
+      const restaurant = request.payload;
+      if(await db.restaurantStore.getRestaurantByName(restaurant.name)) {
+        return Boom.unauthorized("Restaurant already exists");
+      };
+      const newRestaurant = new Restaurant({
+          name: restaurant.name,
+          description: restaurant.description,
+          category: restaurant.category,
+          cuisine: restaurant.cuisine,
+          latitude: restaurant.latitude,
+          longitude: restaurant.longitude
+      });
       try {
-        const restaurant = request.payload;
-        if(await db.userStore.getRestaurantByName(restaurant.name)) {
-            const errors = [];
-            errors.push({message: "Restaurant Already Exists"});
-            console.log(`Restaurant already exists: ${restaurant.name}`);
+        const addNewRestaurant = await db.restaurantStore.addRestaurant(newRestaurant);
+        if(addNewRestaurant) {
+          return h.response(addNewRestaurant).code(201);
         };
-        const newRestaurant = new Restaurant({
-            name: restaurant.name,
-            description: restaurant.description,
-            category: restaurant.category,
-            cuisine: restaurant.cuisine,
-            latitude: restaurant.latitude,
-            longitude: restaurant.longitude
-        });
-        await db.restaurantStore.addRestaurant(newRestaurant);
+        return Boom.badImplementation("Error creating restaurant");
       } catch (err) {
-        return Boom.badImplementation("error creating restaurant");
-      }
+        return Boom.badImplementation("Database error");
+      };
     },
     tags: ["api"],
     description: "Add a new Restaurant",

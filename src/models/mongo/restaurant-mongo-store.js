@@ -14,9 +14,9 @@ export const restaurantMongoStore = {
         return null;
     },
 
-    async getRestaurantsByName(nameInput) {
-        const restaurants = await Restaurant.find({name: nameInput}).lean();
-        return restaurants;
+    async getRestaurantByName(nameInput) {
+        const restaurant = await Restaurant.findOne({name: nameInput}).lean();
+        return restaurant;
     },
 
     async getRestaurantsByCategory(categoryInput) {
