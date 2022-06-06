@@ -1,3 +1,4 @@
+import fs from 'fs';
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { Restaurant } from "../models/mongo/restaurant.js";
@@ -104,10 +105,12 @@ export const restaurantApi = {
       console.log('uploadImage initiated')
       try {
         const Restaurant = await db.restaurantStore.getRestaurantById(request.params.id);
-        const data = request.payload.imageFile;
-        if (data) {
-          console.log('uploading ' + data.name + ' to ' + Restaurant.name)
-          const url = await imageStore.uploadImage(data);
+        if (request.payload) {
+          console.log('Stringifying payload ' + request.payload)
+          const stringifiedImage = JSON.stringify(await request.payload).toString();
+          console.log(stringifiedImage);
+          console.log('uploading image to ' + Restaurant.name);
+          url = await imageStore.uploadImage(stringifiedImage, 'base64');
           console.log(url)
           Restaurant.img = url;
           db.restaurantStore.updateRestaurant(Restaurant);
@@ -122,9 +125,7 @@ export const restaurantApi = {
     payload: {
       multipart: true,
       output: "file",
-      allow: ['multipart/form-data', 'image/jpeg', 'image/png'],
       maxBytes: 209715200,
-      parse: true
     }
   },
 };
