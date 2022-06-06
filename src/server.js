@@ -47,21 +47,12 @@ async function init() {
     },
   ]);
   server.validator(Joi);
-  server.auth.strategy("session", "cookie", {
-    cookie: {
-      name: process.env.cookieName,
-      password: process.env.cookiePassword,
-      isSecure: false,
-    },
-    redirectTo: "/",
-    validateFunc: accountsController.validate,
-  });
   server.auth.strategy("jwt", "jwt", {
     key: process.env.cookie_password,
     validate: validate,
     verifyOptions: { algorithms: ["HS256"] }
   });
-  server.auth.default("session");
+  server.auth.default("jwt");
   server.views({
     engines: {
       hbs: Handlebars,
