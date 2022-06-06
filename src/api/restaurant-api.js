@@ -3,6 +3,7 @@ import { db } from "../models/db.js";
 import { Restaurant } from "../models/mongo/restaurant.js";
 import { RestaurantSpec, RestaurantSpecPlus, RestaurantArray } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { imageStore } from "../models/image-store.js";
 
 export const restaurantApi = {
   create: {
@@ -93,5 +94,37 @@ export const restaurantApi = {
     tags: ["api"],
     description: "Delete all restaurants",
     notes: "Delete all restaurants from Placemark",
+  },
+
+  uploadImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function(request, h) {
+      console.log('uploadImage initiated')
+      try {
+        const Restaurant = await db.restaurantStore.getRestaurantById(request.params.id);
+        const data = request.payload.imageFile;
+        if (data) {
+          console.log('uploading ' + data.name + ' to ' + Restaurant.name)
+          const url = await imageStore.uploadImage(data);
+          console.log(url)
+          Restaurant.img = url;
+          db.restaurantStore.updateRestaurant(Restaurant);
+          return h.response.code(201);
+        }
+        return Boom.serverUnavailable("Error");
+      } catch (err) {
+        console.log(err)
+        return Boom.serverUnavailable("Error");
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "file",
+      allow: ['multipart/form-data', 'image/jpeg', 'image/png'],
+      maxBytes: 209715200,
+      parse: true
+    }
   },
 };
