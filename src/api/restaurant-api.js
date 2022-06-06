@@ -6,7 +6,9 @@ import { validationError } from "./logger.js";
 
 export const restaurantApi = {
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function(request, h) {
       const restaurant = request.payload;
       if(await db.restaurantStore.getRestaurantByName(restaurant.name)) {
@@ -38,7 +40,9 @@ export const restaurantApi = {
   },
 
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function(request, h) {
       try {
         const restaurants = await db.restaurantStore.getAllRestaurants();
@@ -54,7 +58,9 @@ export const restaurantApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const restaurant = await db.restaurantStore.getRestaurantById(request.params.id);
@@ -73,7 +79,9 @@ export const restaurantApi = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.restaurantStore.deleteAll();

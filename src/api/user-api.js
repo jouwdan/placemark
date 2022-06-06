@@ -19,9 +19,7 @@ export const userApi = {
           const token = createToken(user);
           return h.response({ success: true, token: token }).code(201);
         };
-        if(err) {
-          return Boom.unauthorized("Invalid password");
-        };
+        return Boom.unauthorized("Invalid password");
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
