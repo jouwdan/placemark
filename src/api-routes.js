@@ -14,4 +14,5 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/restaurants", config: restaurantApi.deleteAll },
   { method: "GET", path: "/api/restaurants/{id}", config: restaurantApi.findOne },
   { method: "POST", path: "/api/restaurants/{id}/uploadimage", config: restaurantApi.uploadImage },
+  { method: "POST", path: "/api/restaurants/{id}/deleteimage", config: restaurantApi.deleteImage },
 ];

@@ -106,15 +106,15 @@ export const restaurantApi = {
       try {
         const Restaurant = await db.restaurantStore.getRestaurantById(request.params.id);
         if (request.payload) {
-          console.log('Stringifying payload ' + request.payload)
-          const stringifiedImage = JSON.stringify(await request.payload).toString();
-          console.log(stringifiedImage);
+          let str = JSON.stringify(await request.payload.data).toString();
+          const stringifiedImage = str.replaceAll('"', '');
+          console.log(stringifiedImage)
           console.log('uploading image to ' + Restaurant.name);
-          url = await imageStore.uploadImage(stringifiedImage, 'base64');
+          let url = await imageStore.uploadBase64Image(stringifiedImage);
           console.log(url)
           Restaurant.img = url;
-          db.restaurantStore.updateRestaurant(Restaurant);
-          return h.response.code(201);
+          const dbUpdate = await db.restaurantStore.updateRestaurant(Restaurant);
+          return h.response(dbUpdate).code(201);
         }
         return Boom.serverUnavailable("Error");
       } catch (err) {
@@ -127,5 +127,30 @@ export const restaurantApi = {
       output: "file",
       maxBytes: 209715200,
     }
+  },
+
+  deleteImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function(request, h) {
+      console.log('deleteImage initiated')
+      try {
+        const Restaurant = await db.restaurantStore.getRestaurantById(request.params.id);
+        var filename = Restaurant.img.split('/').pop();
+        var fileid = filename.substring(0, filename.lastIndexOf('.')) || filename;
+        console.log('deleting image ' + fileid)
+        if (Restaurant) {
+          await imageStore.deleteImage(fileid);
+          Restaurant.img = "delete";
+          const dbUpdate = await db.restaurantStore.updateRestaurant(Restaurant);
+          return h.response(dbUpdate).code(201);
+        }
+        return Boom.serverUnavailable("Error");
+      } catch (err) {
+        console.log(err)
+        return Boom.serverUnavailable("Error");
+      }
+    },
   },
 };

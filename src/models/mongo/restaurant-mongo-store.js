@@ -50,8 +50,14 @@ export const restaurantMongoStore = {
 
     async updateRestaurant(updatedRestaurant) {
         const selectedRestaurant = await Restaurant.findOne({ _id: updatedRestaurant._id });
-        selectedRestaurant.title = updatedRestaurant.title;
-        selectedRestaurant.img = updatedRestaurant.img;
-        await selectedRestaurant.save();
+        if(updatedRestaurant.img != "delete") {
+            selectedRestaurant.img = updatedRestaurant.img;
+        } else {
+            console.log('deleting from db')
+            const s = await Restaurant.updateOne({_id: selectedRestaurant._id}, {$unset: {img: ''}});
+            return s;
+        }
+        const r = await selectedRestaurant.save();
+        return r;
       },
 };
